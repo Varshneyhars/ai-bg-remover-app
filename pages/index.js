@@ -1,6 +1,6 @@
 // Home.js
 import { useState, useEffect } from 'react';
-import './Home.css'; // Import the CSS file
+import styles from './Home.module.css';
 
 export default function Home() {
     const [file, setFile] = useState(null);
@@ -79,216 +79,187 @@ export default function Home() {
     };
 
     return (
-        <div className="app-container">
-            <div className="content-wrapper">
-                <div className="header-section">
-                    <h1 className="app-title">AI Background Remover</h1>
-                    <p className="app-subtitle">Upload an image to instantly remove the background</p>
+        <div className={styles.appContainer}>
+            <div className={styles.contentWrapper}>
+                <div className={styles.headerSection}>
+                    <h1 className={styles.appTitle}>AI Background Remover</h1>
+                    <p className={styles.appSubtitle}>Upload an image to instantly remove the background</p>
                 </div>
 
-                <div className="main-card">
-                    <div className="grid-container">
+                <div className={styles.mainCard}>
+                    <div className={styles.gridContainer}>
                         {/* Upload Section */}
-                        <div className="upload-section">
-                            <div className="file-upload-area">
+                        <div className={styles.uploadSection}>
+                            <div className={styles.fileUploadArea}>
                                 <input
                                     type="file"
                                     id="file-upload"
                                     onChange={handleFileChange}
                                     accept="image/*"
-                                    className="file-input"
+                                    className={styles.fileInput}
                                 />
-                                <label htmlFor="file-upload" className="file-upload-label">
-                                    <div className="upload-content">
-                                        <svg className="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                <label htmlFor="file-upload" className={styles.fileUploadLabel}>
+                                    <div className={styles.uploadContent}>
+                                        <svg className={styles.uploadIcon} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                         </svg>
-                                        <p className="file-name">
-                                            {file ? file.name : 'Click to upload an image'}
-                                        </p>
+                                        <span>Click to upload or drag and drop</span>
+                                        {file && <span className={styles.fileName}>{file.name}</span>}
                                     </div>
                                 </label>
                             </div>
 
-                            {/* Options Toggle Button */}
-                            <button 
-                                type="button" 
-                                className="options-toggle-button"
+                            <button
+                                className={styles.optionsToggleButton}
                                 onClick={() => setShowOptions(!showOptions)}
+                                aria-expanded={showOptions}
                             >
-                                {showOptions ? 'Hide Options' : 'Show Options'}
+                                <span>Advanced Options</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
                             </button>
 
-                            {/* Options Form */}
                             {showOptions && (
-                                <div className="options-form">
-                                    <h3 className="options-title">Background Removal Options</h3>
-                                    
-                                    <div className="form-group">
-                                        <label htmlFor="background">Background:</label>
-                                        <select 
-                                            id="background" 
-                                            name="background" 
+                                <div className={styles.optionsForm}>
+                                    <h3 className={styles.optionsTitle}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                        </svg>
+                                        Background Removal Options
+                                    </h3>
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="background">Background Color</label>
+                                        <input
+                                            type="text"
+                                            id="background"
+                                            name="background"
                                             value={options.background}
                                             onChange={handleOptionChange}
-                                            className="form-control"
-                                        >
-                                            {/* <option value="linear-gradient(to right, #ff7e5f, #feb47b)">Gradient (Orange)</option> */}
-                                            <option value="linear-gradient(to right, #4facfe, #00f2fe)">Gradient (Blue)</option>
-                                            <option value="linear-gradient(to right, #43e97b, #38f9d7)">Gradient (Green)</option>
-                                            <option value="#FFFFFF">Solid White</option>
-                                            <option value="#000000">Solid Black</option>
-                                         
-                                        </select>
+                                            className={styles.formControl}
+                                            placeholder="Enter background color or gradient"
+                                        />
                                     </div>
-                                    
-                                    <div className="form-group">
-                                        <label htmlFor="model">Model:</label>
-                                        <select 
-                                            id="model" 
-                                            name="model" 
-                                            value={options.model}
+                                    <div className={styles.checkboxGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="enhance"
+                                            name="enhance"
+                                            checked={options.enhance}
                                             onChange={handleOptionChange}
-                                            className="form-control"
-                                        >
-                                            <option value="silueta">Silueta (Default)</option>
-                                            {/* <option value="u2netp">U2NetP</option>
-                                            <option value="u2net">U2Net</option>
-                                            <option value="isnet-general-use">ISNet General Use</option> */}
-                                        </select>
+                                        />
+                                        <label htmlFor="enhance">Enhance Image Quality</label>
                                     </div>
-                                    
-                                    <div className="form-group checkbox-group">
-                                        <label>
-                                            <input 
-                                                type="checkbox" 
-                                                name="enhance" 
-                                                checked={options.enhance}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Enhance image quality
-                                        </label>
+                                    <div className={styles.checkboxGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="vector"
+                                            name="vector"
+                                            checked={options.vector}
+                                            onChange={handleOptionChange}
+                                        />
+                                        <label htmlFor="vector">Convert to Vector</label>
                                     </div>
-                                    
-                                    {/* <div className="form-group checkbox-group">
-                                        <label>
-                                            <input 
-                                                type="checkbox" 
-                                                name="vector" 
-                                                checked={options.vector}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Convert to SVG (vector)
-                                        </label>
-                                    </div> */}
                                 </div>
                             )}
 
                             <button
                                 onClick={handleUpload}
                                 disabled={!file || processing}
-                                className={`process-button ${!file || processing ? 'disabled' : ''}`}
+                                className={`${styles.processButton} ${processing ? styles.disabled : ''}`}
                             >
                                 {processing ? (
-                                    <span className="button-loading">
-                                        <svg className="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="spinner-circle" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="spinner-path" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
+                                    <>
+                                        <div className={styles.buttonLoading}>
+                                            <div className={styles.spinner}>
+                                                <div className={styles.spinnerCircle}></div>
+                                                <div className={styles.spinnerPath}></div>
+                                            </div>
+                                        </div>
                                         Processing...
-                                    </span>
-                                ) : 'Remove Background'}
+                                    </>
+                                ) : (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                        Remove Background
+                                    </>
+                                )}
                             </button>
+                        </div>
 
-                            {previewUrl && (
-                                <div className="preview-section">
-                                    <h3 className="section-title">Original</h3>
-                                    <img
-                                        src={previewUrl}
-                                        alt="Preview"
-                                        className="preview-image"
-                                    />
+                        {/* Preview Section */}
+                        <div className={styles.previewSection}>
+                            <h3 className={styles.sectionTitle}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                Preview
+                            </h3>
+                            {previewUrl ? (
+                                <img src={previewUrl} alt="Preview" className={styles.previewImage} />
+                            ) : (
+                                <div className={styles.emptyResult}>
+                                    <div className={styles.emptyContent}>
+                                        <svg className={styles.emptyIcon} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <h4 className={styles.emptyTitle}>No Image Selected</h4>
+                                        <p className={styles.emptyDescription}>Upload an image to see the preview</p>
+                                    </div>
                                 </div>
                             )}
                         </div>
 
                         {/* Result Section */}
-                        <div className="result-section">
-                            <h3 className="section-title">Result</h3>
+                        {processing && (
+                            <div className={styles.processingAnimation}>
+                                <div className={styles.loadingSpinner}></div>
+                                <h3 className={styles.loadingText}>Processing Image</h3>
+                                <p className={styles.loadingSubtext}>This may take a few moments...</p>
+                            </div>
+                        )}
 
-                            {imageUrl ? (
-                                <div className="result-content">
-                                    <div className="result-image-container">
-                                        <img
-                                            src={imageUrl}
-                                            alt="Result"
-                                            className="result-image"
-                                        />
+                        {imageUrl && !processing && (
+                            <div className={styles.resultSection}>
+                                <h3 className={styles.sectionTitle}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                    </svg>
+                                    Result
+                                </h3>
+                                <div className={styles.resultContent}>
+                                    <div className={styles.resultImageContainer}>
+                                        <img src={imageUrl} alt="Processed" className={styles.resultImage} />
                                     </div>
                                     <a
                                         href={imageUrl}
-                                        download="background-removed.png"
-                                        className="download-button"
+                                        download="processed-image.png"
+                                        className={styles.downloadButton}
                                     >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
                                         Download Image
                                     </a>
                                 </div>
-                            ) : processing ? (
-                                <div className="processing-animation">
-                                    <div className="loading-spinner large"></div>
-                                    <p className="loading-text">Removing background...</p>
-                                </div>
-                            ) : (
-                                <div className="empty-result">
-                                    <div className="empty-content">
-                                        <svg className="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                        </svg>
-                                        <h3 className="empty-title">Processed image will appear here</h3>
-                                        <p className="empty-description">Upload an image and click "Remove Background"</p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
-
-                <div className="footer">
-                    <h2>Developed By Harshit & Amul ✨</h2>
-                </div>
             </div>
-            <div className="particles"></div>
         </div>
     );
 }
 
-
-/* Add to your Home.js component */
 function addParticles() {
-    const particlesContainer = document.querySelector('.particles');
-    if (!particlesContainer) return;
-  
-    const particleCount = 15;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      
-      const size = Math.random() * 100 + 50;
-      const posX = Math.random() * window.innerWidth;
-      const posY = Math.random() * window.innerHeight;
-      const delay = Math.random() * 15;
-      const duration = 15 + Math.random() * 10;
-      
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-      particle.style.left = `${posX}px`;
-      particle.style.top = `${posY}px`;
-      particle.style.animationDelay = `${delay}s`;
-      particle.style.animationDuration = `${duration}s`;
-      
-      particlesContainer.appendChild(particle);
-    }
-  }
-  
-  // Call this in useEffect in your component
+    // Add particles animation logic here
+}
